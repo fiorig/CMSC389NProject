@@ -1,0 +1,125 @@
+.aboutUs{
+    text-align: center;
+}
+
+#reviewTable{
+    padding-left:150px;
+}
+
+#bar{
+    background-color: lightblue;
+}
+
+.aboutUsParagraph{
+    text-align:center;
+}
+
+
+
+.myFooter{
+    background-color: lightblue;
+}
+
+#reviewTextArea{
+    padding-left: 150px;
+
+}
+
+.head{
+    text-align: center;
+    background-color:lightblue;
+}
+
+.name{
+    text-align: center;
+    width: 15%;
+}
+
+.rating{
+    text-align: center;
+    width: 15%;
+}
+
+.reviewText{
+    text-align: center;
+}
+.myFooterMain{
+    padding-left: 1px;
+    background-color: lightblue;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: skyblue;
+    color: black;
+    text-align: center;
+}
+
+.footerPara2{
+    padding-left:50px;
+}
+
+.tryOut{
+    text-align: center;
+}
+
+
+.title{
+    text-align:center;
+}
+
+#questionParagraph{
+    text-align:center;
+}
+
+#questionParagraph1{
+    text-align:center;
+}
+
+#contactDiv{
+    padding-left:450px;
+}
+#contactDiv1{
+    padding-left:450px;
+}
+#contactDiv2{
+    padding-left:450px;
+}
+#contactDiv3{
+    padding-left:450px;
+}
+
+
+#tryButton{
+    padding-left:450px;
+}
+
+#tryButton2{
+    padding-left:450px;
+}
+
+
+
+#emailFooter{
+    padding-left:450px;
+}
+
+#faqDiv{
+    padding-left:50px;
+}
+
+.footerPara{
+    font-style: italic;
+    font-size: 19px;
+    font-family: sans-serif;
+}
+
+.Center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

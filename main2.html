@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="groupProj.css">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body onload = "main()">
+
+<nav class="navbar-default navbar stuff" id="bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="toxic.php">Toxicity Calculator<span class="glyphicon glyphicon-alert"></span></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="toxic.php">Toxicity Calculator</a></li>
+            <li class="active"><a href="main.html">About</a></li>
+            <li><a href="faq.php">FAQ</a></li>
+            <li><a href="review.php">Reviews</a></li>
+            <li><a href="contact.php">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <h1 class = "title">About the Toxicity Calculator <span class="glyphicon glyphicon-zoom-out"></span></h1>
+    <br>
+    <img src = "socialmedia.jpg.jpg" height = "500" width = "1349" alt="banner" id = "myImage">
+    <br><br>
+    <h3 class = "aboutUs">What is the Toxicity Calculator?</h3>
+    <p class = "aboutUsParagraph">The Toxicity Calculator uses the most advance state of the art technology in order to calculate the
+        toxicity, or negativity, of a person&apos;s tweet. <br>With the use of this software, you will be able to
+        understand the behaviors of others without having to meet in person.<br> Want to know if the person you are hiring is
+        a potential hooligan? Want to know if your date is bigot? <br>The Toxicity Calculator will do just that helping you
+        avoid those negative people.
+    </p>
+
+</div>
+<br>
+<form action="toxic.php" method="post">
+    <div id="tryButton2" class = "form-group control-label col-sm-8">
+        <h3 class="tryOut"> Try Out Our Creation! </h3>
+        <br>
+        <input type="submit" class="btn btn-primary btn-lg btn-block" name ="goToToxicityButton" value ="Go to the Toxicity Calculator">
+        <br><br><br><br><br><br><br>
+
+    </div>
+</form>
+
+<form action="main2.php" method="post">
+<div class="footer">
+    <p class ="footerPara"> Thank you for signing up for e-mail updates! </p>
+    <div class = "form-group control-label col-sm-8 input-group">
+
+    </div>
+</div>
+</form>
+
+<br><br><br><br><br><br><br><br>
+<footer class="myFooter">
+    <p>Created by: Fiori, Mahdi, Terry, Zack</p>
+    <p>Contact information: <a href="mailto:fake@email.com">
+        fake@email.com</a>.</p>
+</footer>
+
+<script>
+    function main() {
+        var intervalInMilliseconds = 2500;
+        setInterval("swapImages()", intervalInMilliseconds);
+    }
+
+    function swapImages() {
+        var imageElement = document.getElementById("myImage");
+        var imageName = imageElement.getAttribute("src");
+        var nextImage;
+
+        if (imageName === "socialmedia.jpg.jpg") {
+            nextImage = "world.jpg";
+        } else if(imageName === "world.jpg") {
+            nextImage = "blackWhite.jpg";
+        } else {
+            nextImage = "socialmedia.jpg.jpg";
+        }
+        imageElement.setAttribute("src", nextImage);
+    }
+</script>
+
+<script src="bootstrap/jquery-3.2.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
