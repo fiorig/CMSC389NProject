@@ -1,2 +1,2 @@
-# CMSC389NProject
-CMSC389N
+# Twitter Sentiment
+
