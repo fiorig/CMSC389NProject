@@ -17,6 +17,12 @@ require_once("support.php");
              </div>
          </nav>
 
+<label> Enter a Username: </label> <input type = "text" id = "usernameInput">
+
+<div id = "resultDiv"> Result:  </div>
+
+
+
          <br><br>
 
                           <footer class="myFooter">
@@ -29,3 +35,4 @@ EOBODY;
  $page = generatePage($topPart);
      echo $page;
  ?>
+ <script src = "bundle.js"> </script>
