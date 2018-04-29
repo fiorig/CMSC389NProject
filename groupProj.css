@@ -71,6 +71,26 @@
     text-align:center;
 }
 
+.toxicButtons {
+    background-color: #32D29D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.toxicCalcTitle {
+    text-align: center;
+}
+
+#username {
+    font-size: 25px;
+}
+
+
 #questionParagraph{
     text-align:center;
 }
