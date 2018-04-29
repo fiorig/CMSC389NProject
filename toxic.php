@@ -17,7 +17,14 @@ require_once("support.php");
              </div>
          </nav>
 
-<label> Enter a Username: </label> <input type = "text" id = "usernameInput">
+         <h1 class="toxicCalcTitle">Toxicity Calculator</h1>
+<label id="username"> Enter a Username: </label> <input type = "text" id = "usernameInput">
+<br><br>
+<input class="toxicButtons" type="button" value="Calculate Toxicity" id="calcButton"/>
+<input class="toxicButtons" type="button" value="Friends Associated With Account" id="friendsButton"/>
+<input class="toxicButtons" type="button" value="Negative Tweets" id="negButton"/>
+<input class="toxicButtons" type="button" value="Positive Tweets" id="posButton"/>
+<br><br>
 
 <div id = "resultDiv"> Result:  </div>
 
