@@ -1,31 +1,34 @@
 var unirest = require('unirest');
-var stringArray = ["hello", "bad"];
 main(stringArray);
-
 function main(stringArray) {
   if(stringArray.length !== 0 && stringArray !== null) {
-  let sumResult = {
+   getAverage(stringArray, function(result) {
+    parseAccountResult(result);
+  });
+  }
+}
+function getAverage(stringArray, callback) {
+  var sumResult = {
     "neg": 0,
     "neutral": 0,
     "pos": 0
   };
+
   for(let i = 0; i < stringArray.length; i++) {
   getSentiment(stringArray[i], function(senti) {
     if(senti !== -1) {
-  sumResult["neg"] += senti.probability.neg;
-  sumResult["neutral"] += senti.probability.neutral;
-   sumResult["pos"] += senti.probability.pos;
- }
-});
-}
-  sumResult["neg"] = (sumResult.neg)/ stringArray.length;
-  sumResult["neutral"] = (sumResult.neutral)/ stringArray.length;
-  sumResult["pos"] = (sumResult.pos)/ stringArray.length;
-  console.log(sumResult);
-  parseAccountResult(sumResult);
-
-}
-
+    sumResult["neg"] += senti.probability.neg;
+    sumResult["neutral"] += senti.probability.neutral;
+    sumResult["pos"] += senti.probability.pos;
+  }
+  if(i = stringArray.length - 1) {
+    sumResult["neg"] = (sumResult.neg)/stringArray.length;
+    sumResult["neutral"] = (sumResult.neutral)/stringArray.length;
+    sumResult["pos"] = (sumResult.pos)/stringArray.length;
+    callback(sumResult);
+  }
+  });
+  }
 }
 function getSentiment(str, callback) {
 unirest.post("https://japerk-text-processing.p.mashape.com/sentiment/")
@@ -41,6 +44,16 @@ unirest.post("https://japerk-text-processing.p.mashape.com/sentiment/")
         callback(result.body);
       }
 });
+}
+function getPostive(stringArray) {
+  let most = getSentiment(stringArray[0]);
+  for(let i = 1; i < stringArray.length; i++) {
+    let temp = getSentiment(stringArray[i]);
+    if(temp.pos > most.pos) {
+      most = temp;
+    }
+  }
+  return most;
 }
 
 function parseAccountResult(sentiment) {

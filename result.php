@@ -1,4 +1,5 @@
 <?php
+require_once("support.php");
 require_once("TwitterAPIExchange.php");
 
 $settings = array(
@@ -20,9 +21,16 @@ $resultJSON = $twitter->setGetfield($getfield)
 
 $result = json_decode($resultJSON);
 foreach($result->statuses as $tweet) {
-  echo $tweet->text;
+ //echo $tweet->text;
   $tweets[] = $tweet->text;
 }
+$page = <<<EOBODY
+<h1> Result  </h1>
+<div id = "resultDiv"> Result </div>
+EOBODY;
+echo $page;
 ?>
+<script type = "text/javascript">  var stringArray = <?php echo  json_encode($tweets); ?>;
+</script>
 
-<script type="text/javascript"> <?php echo main($tweets); ?>; </script>
+<script src = "bundle.js"> </script>
