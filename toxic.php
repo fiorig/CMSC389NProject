@@ -8,7 +8,7 @@
          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
          <link rel="stylesheet" type="text/css" href="groupProj.css">
          <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+         <script src="toxicVal.js"></script>
          <title>Toxic Twits</title>
      </head>
 
@@ -30,13 +30,13 @@
 
       <br><br>
       <form action="result.php" method="post" id="query">
-      <fieldset>
-      <h1>Test the user for toxicity; use their twitter username</h1><br/>
-      <input type="text" name="user" id="user" placeholder="@username">
-      <input type="submit" value="Submit username">
-      <br><br>
+
+      <fieldset >
+      <h1>Test the user or users for toxicity; use their twitter username</h1><br/>
+      <input type="text" size="80" name="user" id="user" placeholder="username, user1, user2"><br/>
+      <input type="submit" name="submit" value="See if a user or a group of users are toxic!">
+       <br><br>
       <input class="toxicButtons" type="button" value="Calculate Toxicity" id="calcButton"/>
-      <input class="toxicButtons" type="button" value="Friends Associated With Account" id="friendsButton"/>
       <input class="toxicButtons" type="button" value="Negative Tweets" id="negButton"/>
       <input class="toxicButtons" type="button" value="Positive Tweets" id="posButton"/>
       <br><br> 
