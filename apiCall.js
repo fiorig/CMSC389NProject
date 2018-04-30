@@ -1,8 +1,8 @@
 var unirest = require('unirest');
 var stringArray = ["hello", "bad"];
-main();
+main(stringArray);
 
-function main() {
+function main(stringArray) {
   if(stringArray.length !== 0 && stringArray !== null) {
   let sumResult = {
     "neg": 0,
