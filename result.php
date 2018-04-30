@@ -23,5 +23,6 @@ foreach($result->statuses as $tweet) {
   echo $tweet->text;
   $tweets[] = $tweet->text;
 }
-
 ?>
+
+<script type="text/javascript"> <?php echo main($tweets); ?>; </script>
