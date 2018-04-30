@@ -1,5 +1,5 @@
 <?php
-    function generatePage($body, $title="Project3") {
+    function generatePage($body, $title="Toxic Twits") {
         $page = <<<EOPAGE
             <!doctype html>
             <html>
@@ -8,10 +8,10 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <link rel="stylesheet" type="text/css" href="groupProj.css">
                     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+                    <script src="twitterpull.js"></script>
                     <title>$title</title>
                 </head>
-            
+
                 <body>
                     $body
                     <script src="bootstrap/jquery-3.2.1.min.js"></script>
