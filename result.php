@@ -17,9 +17,10 @@ $twitter = new TwitterAPIExchange($settings);
 $resultJSON = $twitter->setGetfield($getfield)
               ->buildOauth($url, $requestMethod)
               ->performRequest();
-echo $resultJSON;
+
 $result = json_decode($resultJSON);
 foreach($result->statuses as $tweet) {
+  echo $tweet->text;
   $tweets[] = $tweet->text;
 }
 
