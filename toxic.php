@@ -34,6 +34,12 @@
       <h1>Test the user for toxicity; use their twitter username</h1><br/>
       <input type="text" name="user" id="user" placeholder="@username">
       <input type="submit" value="Submit username">
+      <br><br>
+      <input class="toxicButtons" type="button" value="Calculate Toxicity" id="calcButton"/>
+      <input class="toxicButtons" type="button" value="Friends Associated With Account" id="friendsButton"/>
+      <input class="toxicButtons" type="button" value="Negative Tweets" id="negButton"/>
+      <input class="toxicButtons" type="button" value="Positive Tweets" id="posButton"/>
+      <br><br> 
       </fieldset>
       </form>
 
