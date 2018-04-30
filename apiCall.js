@@ -36,7 +36,7 @@ unirest.post("https://japerk-text-processing.p.mashape.com/sentiment/")
 .header("Content-Type", "application/x-www-form-urlencoded")
 .header("Accept", "application/json")
 .send("language=english")
-.send(`text=text=${str}`)
+.send(`text=${str}`)
 .end(function (result) {
   if (result.statusCode != 200) {
           callback(-1);
@@ -45,7 +45,9 @@ unirest.post("https://japerk-text-processing.p.mashape.com/sentiment/")
       }
 });
 }
+
 function getPostive(stringArray) {
+  let found = 0;
   let most = getSentiment(stringArray[0]);
   for(let i = 1; i < stringArray.length; i++) {
     let temp = getSentiment(stringArray[i]);
@@ -53,7 +55,19 @@ function getPostive(stringArray) {
       most = temp;
     }
   }
-  return most;
+  return stringArray[found];
+}
+
+function getNegative(stringArray) {
+  let found = 0;
+  let most = getSentiment(stringArray[0]);
+  for(let i = 1; i < stringArray.length; i++) {
+    let temp = getSentiment(stringArray[i]);
+    if(temp.neg > most.neg) {
+      found = i;
+    }
+  }
+  return stringArray[found];
 }
 
 function parseAccountResult(sentiment) {

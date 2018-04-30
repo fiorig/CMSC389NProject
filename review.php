@@ -112,7 +112,7 @@
                                                                                  </td>
                                                          						</tr>
 
-                                                         						$toAdd;
+                                                         						$toAdd<br><br>
                  					</tbody>
                  				</table>
                  			</div>
@@ -128,15 +128,17 @@
                          <input type="radio" name="rating" value="3" checked> 3
                          <input type="radio" name="rating" value="4"> 4
                          <input type="radio" name="rating" value="5"> 5<br><br>
-                         <strong>Upload Additional Information: </strong><input type="file" name="fileToUpload">
-                         <br>
+
+
                          <strong>Your Review: </strong>
-                          <textarea rows="6" cols="69" name="review"></textarea>
+                          <textarea rows="6" cols="80" name="review"></textarea>
                           <br><br>
 
 
 
                           <input type="submit" name="addReview" class="btn btn-primary btn-lg btn-block" value = "Add Review">
+                          <br>
+                          <input type="reset" class="btn btn-primary btn-lg btn-block"  value = "Clear">
 
                                              <br>
                                              </div>

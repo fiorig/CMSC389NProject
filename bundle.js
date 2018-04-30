@@ -2,6 +2,7 @@
 var unirest = require('unirest');
 main(stringArray);
 function main(stringArray) {
+  console.log(stringArray);
   if(stringArray.length !== 0 && stringArray !== null) {
    getAverage(stringArray, function(result) {
      console.log(result);
@@ -47,7 +48,9 @@ unirest.post("https://japerk-text-processing.p.mashape.com/sentiment/")
       }
 });
 }
+
 function getPostive(stringArray) {
+  let found = 0;
   let most = getSentiment(stringArray[0]);
   for(let i = 1; i < stringArray.length; i++) {
     let temp = getSentiment(stringArray[i]);
@@ -55,7 +58,19 @@ function getPostive(stringArray) {
       most = temp;
     }
   }
-  return most;
+  return stringArray[found];
+}
+
+function getNegative(stringArray) {
+  let found = 0;
+  let most = getSentiment(stringArray[0]);
+  for(let i = 1; i < stringArray.length; i++) {
+    let temp = getSentiment(stringArray[i]);
+    if(temp.neg > most.neg) {
+      found = i;
+    }
+  }
+  return stringArray[found];
 }
 
 function parseAccountResult(sentiment) {
@@ -1026,7 +1041,7 @@ var crypto = require('crypto')
  * Valid keys.
  */
 
-var keys = 
+var keys =
   [ 'acl'
   , 'location'
   , 'logging'
@@ -1065,7 +1080,7 @@ module.exports.authorization = authorization
  * @param {Object} options
  * @return {String}
  * @api private
- */ 
+ */
 
 function hmacSha1 (options) {
   return crypto.createHmac('sha1', options.secret).update(options.message).digest('base64')
@@ -1074,8 +1089,8 @@ function hmacSha1 (options) {
 module.exports.hmacSha1 = hmacSha1
 
 /**
- * Create a base64 sha1 HMAC for `options`. 
- * 
+ * Create a base64 sha1 HMAC for `options`.
+ *
  * @param {Object} options
  * @return {String}
  * @api private
@@ -1088,10 +1103,10 @@ function sign (options) {
 module.exports.sign = sign
 
 /**
- * Create a base64 sha1 HMAC for `options`. 
+ * Create a base64 sha1 HMAC for `options`.
  *
  * Specifically to be used with S3 presigned URLs
- * 
+ *
  * @param {Object} options
  * @return {String}
  * @api private
@@ -1107,7 +1122,7 @@ module.exports.signQuery= signQuery
  * Return a string for sign() with the given `options`.
  *
  * Spec:
- * 
+ *
  *    <verb>\n
  *    <md5>\n
  *    <content-type>\n
@@ -1123,7 +1138,7 @@ module.exports.signQuery= signQuery
 function stringToSign (options) {
   var headers = options.amazonHeaders || ''
   if (headers) headers += '\n'
-  var r = 
+  var r =
     [ options.verb
     , options.md5
     , options.contentType
@@ -1139,7 +1154,7 @@ module.exports.queryStringToSign = stringToSign
  * for S3 presigned URLs
  *
  * Spec:
- * 
+ *
  *    <date>\n
  *    <resource>
  *
@@ -2950,11 +2965,11 @@ exports.ECKey = function(curve, key, isPublic)
 //      var y = key.slice(bytes+1);
 //      this.P = new ECPointFp(curve,
 //        curve.fromBigInteger(new BigInteger(x.toString("hex"), 16)),
-//        curve.fromBigInteger(new BigInteger(y.toString("hex"), 16)));      
+//        curve.fromBigInteger(new BigInteger(y.toString("hex"), 16)));
       this.P = curve.decodePointHex(key.toString("hex"));
     }else{
       if(key.length != bytes) return false;
-      priv = new BigInteger(key.toString("hex"), 16);      
+      priv = new BigInteger(key.toString("hex"), 16);
     }
   }else{
     var n1 = n.subtract(BigInteger.ONE);
@@ -2976,7 +2991,7 @@ exports.ECKey = function(curve, key, isPublic)
       if(!key || !key.P) return false;
       var S = key.P.multiply(priv);
       return new Buffer(unstupid(S.getX().toBigInteger().toString(16),bytes*2),"hex");
-   }     
+   }
   }
 }
 
@@ -3419,7 +3434,7 @@ ECFieldElementFp.prototype.modReduce = function(x)
             {
                 u = u.multiply(this.getR());
             }
-            x = u.add(v); 
+            x = u.add(v);
         }
         while (x.compareTo(q) >= 0)
         {
@@ -4001,8 +4016,8 @@ var util = require('util')
   , net = require('net')
   , tls = require('tls')
   , AgentSSL = require('https').Agent
-  
-function getConnectionName(host, port) {  
+
+function getConnectionName(host, port) {
   var name = ''
   if (typeof host === 'string') {
     name = host + ':' + port
@@ -4011,7 +4026,7 @@ function getConnectionName(host, port) {
     name = host.host + ':' + host.port + ':' + (host.localAddress ? (host.localAddress + ':') : ':')
   }
   return name
-}    
+}
 
 function ForeverAgent(options) {
   var self = this
@@ -4029,7 +4044,7 @@ function ForeverAgent(options) {
     } else if (self.sockets[name].length < self.minSockets) {
       if (!self.freeSockets[name]) self.freeSockets[name] = []
       self.freeSockets[name].push(socket)
-      
+
       // if an error happens while we don't use the socket anyway, meh, throw the socket away
       var onIdleError = function() {
         socket.destroy()
@@ -4055,7 +4070,7 @@ ForeverAgent.prototype.createConnection = net.createConnection
 ForeverAgent.prototype.addRequestNoreuse = Agent.prototype.addRequest
 ForeverAgent.prototype.addRequest = function(req, host, port) {
   var name = getConnectionName(host, port)
-  
+
   if (typeof host !== 'string') {
     var options = host
     port = options.port
@@ -4084,7 +4099,7 @@ ForeverAgent.prototype.removeSocket = function(s, name, host, port) {
     delete this.sockets[name]
     delete this.requests[name]
   }
-  
+
   if (this.freeSockets[name]) {
     var index = this.freeSockets[name].indexOf(s)
     if (index !== -1) {
@@ -10327,8 +10342,8 @@ var validate = exports._validate = function(/*Any*/instance,/*Object*/schema,/*O
 			if(typeof instance != 'object' || instance instanceof Array){
 				errors.push({property:path,message:"an object is required"});
 			}
-			
-			for(var i in objTypeDef){ 
+
+			for(var i in objTypeDef){
 				if(objTypeDef.hasOwnProperty(i)){
 					var value = instance[i];
 					// skip _not_ specified properties
@@ -18346,7 +18361,7 @@ function compare (a, b) {
 }
 
 function generateBase (httpMethod, base_uri, params) {
-  // adapted from https://dev.twitter.com/docs/auth/oauth and 
+  // adapted from https://dev.twitter.com/docs/auth/oauth and
   // https://dev.twitter.com/docs/auth/creating-signature
 
   // Parameter normalization
@@ -39988,7 +40003,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
   var placeholder = {}
   self.sockets.push(placeholder)
 
-  var connectOptions = mergeOptions({}, self.proxyOptions, 
+  var connectOptions = mergeOptions({}, self.proxyOptions,
     { method: 'CONNECT'
     , path: options.host + ':' + options.port
     , agent: false
@@ -40053,7 +40068,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
 TunnelingAgent.prototype.removeSocket = function removeSocket(socket) {
   var pos = this.sockets.indexOf(socket)
   if (pos === -1) return
-  
+
   this.sockets.splice(pos, 1)
 
   var pending = this.requests.shift()
@@ -40068,7 +40083,7 @@ function createSecureSocket(options, cb) {
   var self = this
   TunnelingAgent.prototype.createSocket.call(self, options, function(socket) {
     // 0 is dummy port for v0.6
-    var secureSocket = tls.connect(0, mergeOptions({}, self.options, 
+    var secureSocket = tls.connect(0, mergeOptions({}, self.options,
       { servername: options.host
       , socket: socket
       }
@@ -69592,7 +69607,7 @@ module.exports = function privateDecrypt(private_key, enc, reverse) {
   } else {
     padding = 4;
   }
-  
+
   var key = parseKeys(private_key);
   var k = key.modulus.byteLength();
   if (enc.length > k || new bn(enc).cmp(key.modulus) >= 0) {
@@ -74659,7 +74674,7 @@ var IncomingMessage = exports.IncomingMessage = function (xhr, response, mode) {
 		self.url = response.url
 		self.statusCode = response.status
 		self.statusMessage = response.statusText
-		
+
 		response.headers.forEach(function (header, key){
 			self.headers[key.toLowerCase()] = header
 			self.rawHeaders.push(key, header)
@@ -74782,7 +74797,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 				self.push(new Buffer(response))
 				break
 			}
-			// Falls through in IE8	
+			// Falls through in IE8
 		case 'text':
 			try { // This will fail when readyState = 3 in IE9. Switch mode and wait for readyState = 4
 				response = xhr.responseText
@@ -76581,13 +76596,13 @@ Script.prototype.runInContext = function (context) {
     if (!(context instanceof Context)) {
         throw new TypeError("needs a 'context' argument.");
     }
-    
+
     var iframe = document.createElement('iframe');
     if (!iframe.style) iframe.style = {};
     iframe.style.display = 'none';
-    
+
     document.body.appendChild(iframe);
-    
+
     var win = iframe.contentWindow;
     var wEval = win.eval, wExecScript = win.execScript;
 
@@ -76596,7 +76611,7 @@ Script.prototype.runInContext = function (context) {
         wExecScript.call(win, 'null');
         wEval = win.eval;
     }
-    
+
     forEach(Object_keys(context), function (key) {
         win[key] = context[key];
     });
@@ -76605,11 +76620,11 @@ Script.prototype.runInContext = function (context) {
             win[key] = context[key];
         }
     });
-    
+
     var winKeys = Object_keys(win);
 
     var res = wEval.call(win, this.code);
-    
+
     forEach(Object_keys(win), function (key) {
         // Avoid copying circular objects like `top` and `window` by only
         // updating existing context properties or new properties in the `win`
@@ -76624,9 +76639,9 @@ Script.prototype.runInContext = function (context) {
             defineProp(context, key, win[key]);
         }
     });
-    
+
     document.body.removeChild(iframe);
-    
+
     return res;
 };
 
