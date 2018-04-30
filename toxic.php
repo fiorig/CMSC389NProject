@@ -30,10 +30,16 @@
 
       <br><br>
       <form action="result.php" method="post" id="query">
+
       <fieldset >
       <h1>Test the user or users for toxicity; use their twitter username</h1><br/>
       <input type="text" size="80" name="user" id="user" placeholder="username, user1, user2"><br/>
       <input type="submit" name="submit" value="See if a user or a group of users are toxic!">
+       <br><br>
+      <input class="toxicButtons" type="button" value="Calculate Toxicity" id="calcButton"/>
+      <input class="toxicButtons" type="button" value="Negative Tweets" id="negButton"/>
+      <input class="toxicButtons" type="button" value="Positive Tweets" id="posButton"/>
+      <br><br> 
       </fieldset>
       </form>
 

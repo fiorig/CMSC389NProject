@@ -15,9 +15,9 @@
 }
 
 
-
 .myFooter{
     background-color: lightblue;
+
 }
 
 #reviewTextArea{
@@ -28,6 +28,13 @@
 .head{
     text-align: center;
     background-color:lightblue;
+}
+
+#footerMain {
+    background-color: lightblue;
+}
+#footerMain2 {
+    background-color: lightblue;
 }
 
 .name{
@@ -61,6 +68,9 @@
 .footerPara2{
     padding-left:50px;
 }
+.footerPara3{
+    padding-left:0px;
+}
 
 .tryOut{
     text-align: center;
@@ -70,26 +80,6 @@
 .title{
     text-align:center;
 }
-
-.toxicButtons {
-    background-color: #32D29D; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-}
-
-.toxicCalcTitle {
-    text-align: center;
-}
-
-#username {
-    font-size: 25px;
-}
-
 
 #questionParagraph{
     text-align:center;

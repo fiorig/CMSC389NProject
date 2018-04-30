@@ -47,8 +47,8 @@ $topPart = <<<EOBODY
                     <strong>Your Preferred Method of Contact: </strong>
                     <input type="radio" name="contact" value="email" checked> Email
                       <input type="radio" name="contact" value="phone"> Phone <br><br>
-                     <strong>Your Message: </strong>
-                     <textarea rows="6" cols="59" name="message"></textarea>
+                     <strong>Your Message: </strong><br>
+                     <textarea rows="6" cols="73" name="message"></textarea>
                      <br><br>
                      <input type="submit" class="btn btn-primary btn-lg btn-block" name ="messageSubmit" value= "Submit Message">
                      <input type="reset" class="btn btn-primary btn-lg btn-block" value= "Reset">
@@ -60,11 +60,11 @@ $topPart = <<<EOBODY
                <br><br><br><br><br><br><br><br><br>
                <br><br><br><br><br><br><br><br>
 
-                                <footer class="myFooter">
+                                <div class="myFooter">
                                    <p class = "footerPara2">Created by: Fiori, Mahdi, Terry, Zack</p>
                                    <p class = "footerPara2">Contact information: <a href="mailto:fake@email.com">
                                      fake@email.com</a>.</p>
-                                </footer>
+                                </div>
 
 EOBODY;
 

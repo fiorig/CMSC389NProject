@@ -33,8 +33,6 @@ foreach ($array_users as $k) {
     }
 }
 
-
-
 $page = <<<EOBODY
 <h1> Result  </h1>
 <div id = "resultDiv"> Result </div>
