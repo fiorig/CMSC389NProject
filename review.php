@@ -52,6 +52,7 @@ if (!$result) {
 }
 
 $topPart = <<<EOBODY
+
         <nav class="navbar-default navbar stuff" id="bar">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -117,11 +118,13 @@ $topPart = <<<EOBODY
                          <input type="radio" name="rating" value="3" checked> 3
                          <input type="radio" name="rating" value="4"> 4
                          <input type="radio" name="rating" value="5"> 5<br><br>
+
                          <strong>Add Your Image:</strong> <br><br>
 			             <input type="file" name="file" id="file">
 			             <br>
                          <strong>Upload Additional Information: </strong><input type="file" name="fileToUpload">
                          <br>
+
                          <strong>Your Review: </strong>
                           <textarea rows="6" cols="80" name="review"></textarea>
                           <br><br>
@@ -140,19 +143,6 @@ $topPart = <<<EOBODY
                 <br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br><br>
-
-
-                 <footer class="myFooter">
-                                                                                                 <p class = "footerPara2">Created by: Fiori, Mahdi, Terry, Zack</p>
-                                                                                                 <p class = "footerPara2">Contact information: <a href="mailto:fake@email.com">
-                                                                                                   fake@email.com</a>.</p>
-                                                                                              </footer>
-
-
-
-
-
-
 
 EOBODY;
 

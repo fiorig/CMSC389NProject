@@ -5,6 +5,7 @@ function main(stringArray) {
    getAverage(stringArray, function(result) {
     parseAccountResult(result);
   });
+
   }
 }
 function getAverage(stringArray, callback) {
@@ -22,9 +23,9 @@ function getAverage(stringArray, callback) {
     sumResult["pos"] += senti.probability.pos;
   }
   if(i = stringArray.length - 1) {
-    sumResult["neg"] = (sumResult.neg)/stringArray.length;
-    sumResult["neutral"] = (sumResult.neutral)/stringArray.length;
-    sumResult["pos"] = (sumResult.pos)/stringArray.length;
+    sumResult["neg"] = sumResult.neg;
+    sumResult["neutral"] = sumResult.neutral;
+    sumResult["pos"] = sumResult.pos;
     callback(sumResult);
   }
   });
@@ -45,8 +46,9 @@ unirest.post("https://japerk-text-processing.p.mashape.com/sentiment/")
       }
 });
 }
-
+/*
 function getPostive(stringArray) {
+  console.log("ok");
   let found = 0;
   let most = getSentiment(stringArray[0]);
   for(let i = 1; i < stringArray.length; i++) {
@@ -55,8 +57,8 @@ function getPostive(stringArray) {
       most = temp;
     }
   }
-  return stringArray[found];
-}
+  resultDiv.innerHTML = `WORKS!!!`;
+} */
 
 function getNegative(stringArray) {
   let found = 0;
@@ -72,14 +74,16 @@ function getNegative(stringArray) {
 
 function parseAccountResult(sentiment) {
   let resultDiv = document.getElementById("resultDiv");
-    if(sentiment["pos"] >= sentiment["neg"] && sentiment["pos"] >= sentiment["neutral"]) {
-      resultDiv.innerHTML = `This is a positive account with a ${sentiment["pos"]} probability of being viewed positivity!`;
-    } else if (sentiment["neg"] >= sentiment["pos"] && sentiment["neg"] >= sentiment["neutral"]) {
-      resultDiv.innerHTML = `This is a positive account with a ${sentiment["neg"]} probability of being viewed positivity!`;
-    } else {
-     resultDiv.innerHTML = `This is a neutral account with a ${sentiment["neutral"]} probability of being viewed neutral!`;
-    }
-
+  if(sentiment["pos"] >= sentiment["neg"] && sentiment["pos"] >= sentiment["neutral"]) {
+    resultDiv.innerHTML = "<h5 style = 'text-align: center;'> You have a Positive Account</h5><br>";
+  } else if (sentiment["neg"] >= sentiment["pos"] && sentiment["neg"] >= sentiment["neutral"]) {
+    resultDiv.innerHTML = "<h5 style = 'text-align: center;'> You have a Negative Account</h5><br>";
+  } else {
+    resultDiv.innerHTML = "<h5 style = 'text-align: center;'> You have a Neutral Account</h5><br>";
+  }
+    resultDiv.innerHTML += `<h6 style = 'text-align: center;'>A ${sentiment["pos"].toFixed(2)} probability of being viewed positivity!</h6><br>`;
+    resultDiv.innerHTML += `<h6 style = 'text-align: center;'>A ${sentiment["neg"].toFixed(2)} probability of being viewed negatively!</h6><br>`;
+    resultDiv.innerHTML += `<h6 style = 'text-align: center;'>A ${sentiment["neutral"].toFixed(2)} probability of being viewed neutral!</h6><br>`;
 }
 
 /*
