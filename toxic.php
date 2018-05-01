@@ -1,4 +1,5 @@
 <?php
+require_once("support.php");
 
  $page = <<<EOBODY
  <!doctype html>
@@ -29,19 +30,21 @@
       </nav>
 
       <br><br>
-      <form action="result.php" method="post" id="query">
+      <form action="" method="post" id="query">
 
       <fieldset >
-      <h1>Test the user or users for toxicity; use their twitter username</h1><br/>
-      <input type="text" size="80" name="user" id="user" placeholder="username, user1, user2"><br/>
-      <input type="submit" name="submit" value="See if a user or a group of users are toxic!">
-       <br><br>
-      <input class="toxicButtons" type="button" value="Calculate Toxicity" id="calcButton"/>
-      <input class="toxicButtons" type="button" value="Negative Tweets" id="negButton"/>
-      <input class="toxicButtons" type="button" value="Positive Tweets" id="posButton"/>
-      <br><br> 
+ <h1 style = 'text-align: center'>Toxicity Calculator</h1>
+ <div style = 'text-align: center'>
+       <input type="text" size="50" name="user" id="user" placeholder="@username, user1, user2"><br/>       <br>
+
+      <input type="submit" name="submit" value="Calculate Account(s) Toxicity">
+      </div>
+       <br>
       </fieldset>
       </form>
+      <h3 style = 'text-align: center'> Result </h3>
+      <div id = "resultDiv">  </div>
+
 
      <footer class="myFooter">
           <p class = "footerPara2">Created by: Fiori, Mahdi, Terry, Zack</p>
@@ -52,8 +55,53 @@
          <script src="bootstrap/js/bootstrap.min.js"></script>
      </body>
  </html>
-
 EOBODY;
+if(isset($_POST['submit'])) {
+  require_once("TwitterAPIExchange.php");
+  require_once("keys.php");
+  /* Authorization header setup */
+  $settings = array(
+    'oauth_access_token' => $YOUR_ACCESS_TOKEN2,
+    'oauth_access_token_secret' => $YOUR_ACCESS_SECRET2,
+    'consumer_key' => $YOUR_CONSUMER_KEY2,
+    'consumer_secret' => $YOUR_CONSUMER_SECRET2
+  );
 
-     echo $page;
+  $url = "https://api.twitter.com/1.1/search/tweets.json";
+  $tweets = array();
+  $requestMethod = 'GET';
+
+  /* Determine if user is looking for a single search or multiple people */
+  $user = $_POST['user'];
+  $array_users = explode(", ", $user);
+  foreach ($array_users as $k) {
+      $getfield = '?q=from:';
+      $getfield .= $k;
+
+      $twitter = new TwitterAPIExchange($settings);
+      $resultJSON = $twitter->setGetfield($getfield)
+          ->buildOauth($url, $requestMethod)
+          ->performRequest();
+
+      $result = json_decode($resultJSON);
+      foreach($result->statuses as $tweet) {
+          //echo $tweet->text;
+          $tweets[] = $tweet->text;
+      }
+  }
+  ?>
+
+  <script type = "text/javascript">  var stringArray = <?php echo  json_encode($tweets); ?>;
+  </script>
+
+  <script src = "bundle.js"> </script>
+  <?php
+  //$page = <<<EOBODY
+  //<h1> Result  </h1>
+  //<div id = "resultDiv"> Result </div>
+  //EOBODY;
+}
+
+echo $page;
+
  ?>
