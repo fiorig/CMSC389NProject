@@ -16,10 +16,11 @@ if (isset($_POST["addReview"])) {
     $displayName = $_POST["displayName"];
     $rating = $_POST["rating"];
     $review = $_POST["review"];
+    $file = $_POST["file"];
 
+    $fileData = addslashes(file_get_contents($file));
 
-    $sqlQuery = sprintf("insert into $table (name,rating,review) values ('%s', '%d', '%s')",
-        $displayName, $rating, $review);
+    $sqlQuery = sprintf("insert into $table values ('$displayName', '$rating', '$review', '$file')");
 
 
     $result = $db_connection->query($sqlQuery);
@@ -40,9 +41,13 @@ if (!$result) {
         $displayNameItem = $row['name'];
         $ratingItem = $row['rating'];
         $reviewItem = $row['review'];
+        $imageItem = $row['image'];
+        /*$realImage = base64_decode($imageItem);
+		      $realImage2 = "<img src='data:image/jpeg;base64,{$realImage}' alt='pic'>";*/
         $toAdd .= "<tr><td class='name'>$displayNameItem</td>
                        <td class='rating'>$ratingItem". "/5</td>
-                       <td class= 'reviewText'>$reviewItem</td></tr>";
+                       <td class= 'reviewText'>$reviewItem</td>
+                       <td><img src='$imageItem' class='userImage' alt='User Pic'></td></tr>";
         }
 }
 
@@ -88,15 +93,15 @@ $topPart = <<<EOBODY
                                          </td>
                  						</tr>
                  						<tr>
-                                                                                  <td class="name">Wallace Loh</td>
-                                                                                  <td class="rating" >5/5</td>
-                                                                                  <td class= "reviewText" >Amazing website. I cannot beleive this was made
-                                                                                  by UMD students. The creators of this website deserve an A for their grade.
-                                                                                  I will fire their professor if they don't receive an A on this project.
-                                                                                 </td>
-                                                         						</tr>
+                                        <td class="name">Wallace Loh</td>
+                                        <td class="rating" >5/5</td>
+                                        <td class= "reviewText" >Amazing website. I cannot beleive this was made
+                                                                 by UMD students. The creators of this website deserve an A for their grade.
+                                                                I will fire their professor if they don't receive an A on this project.
+                                                              </td>
+                                        </tr>
 
-                                                         						$toAdd;
+                                        $toAdd;
                  					</tbody>
                  				</table>
                  			</div>
@@ -112,16 +117,20 @@ $topPart = <<<EOBODY
                          <input type="radio" name="rating" value="3" checked> 3
                          <input type="radio" name="rating" value="4"> 4
                          <input type="radio" name="rating" value="5"> 5<br><br>
+                         <strong>Add Your Image:</strong> <br><br>
+			             <input type="file" name="file" id="file">
+			             <br>
                          <strong>Upload Additional Information: </strong><input type="file" name="fileToUpload">
                          <br>
                          <strong>Your Review: </strong>
-                          <textarea rows="6" cols="69" name="review"></textarea>
+                          <textarea rows="6" cols="80" name="review"></textarea>
                           <br><br>
 
 
 
                           <input type="submit" name="addReview" class="btn btn-primary btn-lg btn-block" value = "Add Review">
-
+                          <br>
+                          <input type="reset" class="btn btn-primary btn-lg btn-block"  value = "Clear">
                                              <br>
                                              </div>
 
