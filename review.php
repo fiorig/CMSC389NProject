@@ -1,68 +1,52 @@
 <?php
     require_once("support.php");
 
-    if (isset($_POST["addReview"])) {
-            $host = "localhost";
-        	$user = "dbuser";
-        	$password = "goodbyeWorld";
-        	$database = "groupproj";
-        	$table = "reviews";
-        	$db_connection = new mysqli($host, $user, $password, $database);
 
-        	if ($db_connection->connect_error) {
-                    		die($db_connection->connect_error);
-                    	}
-
-                    	 $displayName = $_POST["displayName"];
-                         $rating = $_POST["rating"];
-                         $review = $_POST["review"];
-
-
-                        $sqlQuery = sprintf("insert into $table (name,rating,review) values ('%s', '%d', '%s')",
-                                				$displayName, $rating, $review);
+$host = "localhost";
+$user = "id5526878_dbuser";
+$password = "goodbyeWorld";
+$database = "id5526878_groupproj";
+$table = "reviews";
+$toAdd = "";
+$db_connection = new mysqli($host, $user, $password, $database);
+if ($db_connection->connect_error) {
+    die($db_connection->connect_error);
+}
+if (isset($_POST["addReview"])) {
+    $displayName = $_POST["displayName"];
+    $rating = $_POST["rating"];
+    $review = $_POST["review"];
 
 
-                        $result = $db_connection->query($sqlQuery);
-                        	if (!$result) {
-                        		die("Insertion failed: " . $db_connection->error);
-                        	}
+    $sqlQuery = sprintf("insert into $table (name,rating,review) values ('%s', '%d', '%s')",
+        $displayName, $rating, $review);
 
-                    	 $db_connection->close();
+
+    $result = $db_connection->query($sqlQuery);
+    if (!$result) {
+        die("Insertion failed: " . $db_connection->error);
     }
+    $db_connection->close();
+}
+$query = "select * from $table";
+$result = $db_connection->query($query);
+if (!$result) {
+    die("Retrieval failed: ". $db_connection->error);
+} else {
+    $num_rows = $result->num_rows;
+    for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+        $result->data_seek($row_index);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $displayNameItem = $row['name'];
+        $ratingItem = $row['rating'];
+        $reviewItem = $row['review'];
+        $toAdd .= "<tr><td class='name'>$displayNameItem</td>
+                       <td class='rating'>$ratingItem". "/5</td>
+                       <td class= 'reviewText'>$reviewItem</td></tr>";
+        }
+}
 
-
-
-    $host = "localhost";
-            	$user = "dbuser";
-            	$password = "goodbyeWorld";
-            	$database = "groupproj";
-            	$table = "reviews";
-            	$toAdd = "";
-            	 $db_connection = new mysqli($host, $user, $password, $database);
-        	if ($db_connection->connect_error) {
-        		die($db_connection->connect_error);
-        	}
-        	$query = "select * from $table";
-        	$result = $db_connection->query($query);
-        	if (!$result) {
-           		die("Retrieval failed: ". $db_connection->error);
-    	    } else {
-            	$num_rows = $result->num_rows;
-            	for ($row_index = 0; $row_index < $num_rows; $row_index++) {
-                      $result->data_seek($row_index);
-                      $row = $result->fetch_array(MYSQLI_ASSOC);
-                      $displayNameItem = $row['name'];
-                      $ratingItem = $row['rating'];
-                      $reviewItem = $row['review'];
-                      $toAdd .= "<tr><td class='name'>$displayNameItem</td>
-                                 <td class='rating'>$ratingItem". "/5</td>
-                                 <td class= 'reviewText'>$reviewItem</td></tr>";
-                }
-           }
-
-
-
-    $topPart = <<<EOBODY
+$topPart = <<<EOBODY
         <nav class="navbar-default navbar stuff" id="bar">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -112,7 +96,7 @@
                                                                                  </td>
                                                          						</tr>
 
-                                                         						$toAdd<br><br>
+                                                         						$toAdd;
                  					</tbody>
                  				</table>
                  			</div>
@@ -128,17 +112,15 @@
                          <input type="radio" name="rating" value="3" checked> 3
                          <input type="radio" name="rating" value="4"> 4
                          <input type="radio" name="rating" value="5"> 5<br><br>
-
-
+                         <strong>Upload Additional Information: </strong><input type="file" name="fileToUpload">
+                         <br>
                          <strong>Your Review: </strong>
-                          <textarea rows="6" cols="80" name="review"></textarea>
+                          <textarea rows="6" cols="69" name="review"></textarea>
                           <br><br>
 
 
 
                           <input type="submit" name="addReview" class="btn btn-primary btn-lg btn-block" value = "Add Review">
-                          <br>
-                          <input type="reset" class="btn btn-primary btn-lg btn-block"  value = "Clear">
 
                                              <br>
                                              </div>
