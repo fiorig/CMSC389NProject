@@ -16,10 +16,12 @@
                     	 $displayName = $_POST["displayName"];
                          $rating = $_POST["rating"];
                          $review = $_POST["review"];
+			 $file = $_POST["file"];
+			 
+			 $fileData = addslashes(file_get_contents($file));
 
 
-                        $sqlQuery = sprintf("insert into $table (name,rating,review) values ('%s', '%d', '%s')",
-                                				$displayName, $rating, $review);
+                        $sqlQuery = sprintf("insert into $table values('$displayName', '$rating', '$review', '$file')");
 
 
                         $result = $db_connection->query($sqlQuery);
@@ -54,9 +56,13 @@
                       $displayNameItem = $row['name'];
                       $ratingItem = $row['rating'];
                       $reviewItem = $row['review'];
+		      $imageItem = $row['image'];
+		      /*$realImage = base64_decode($imageItem);
+		      $realImage2 = "<img src='data:image/jpeg;base64,{$realImage}' alt='pic'>";*/
                       $toAdd .= "<tr><td class='name'>$displayNameItem</td>
                                  <td class='rating'>$ratingItem". "/5</td>
-                                 <td class= 'reviewText'>$reviewItem</td></tr>";
+                                 <td class= 'reviewText'>$reviewItem</td>
+				 <td><img src='$imageItem' class='userImage' alt='User Pic'></td></tr>";
                 }
            }
 
@@ -128,6 +134,9 @@
                          <input type="radio" name="rating" value="3" checked> 3
                          <input type="radio" name="rating" value="4"> 4
                          <input type="radio" name="rating" value="5"> 5<br><br>
+			 <strong>Add Your Image:</strong> <br><br>
+			 <input type="file" name="file" id="file">
+			 <br>
 
 
                          <strong>Your Review: </strong>
@@ -149,19 +158,6 @@
                 <br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br><br>
-
-
-                 <footer class="myFooter">
-                                                                                                 <p class = "footerPara2">Created by: Fiori, Mahdi, Terry, Zack</p>
-                                                                                                 <p class = "footerPara2">Contact information: <a href="mailto:fake@email.com">
-                                                                                                   fake@email.com</a>.</p>
-                                                                                              </footer>
-
-
-
-
-
-
 
 EOBODY;
 
