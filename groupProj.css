@@ -81,6 +81,11 @@
     text-align:center;
 }
 
+.userImage {
+    height: 100px;
+    width: 100px;
+}
+
 #questionParagraph{
     text-align:center;
 }
@@ -132,4 +137,3 @@
     align-items: center;
     justify-content: center;
 }
-
