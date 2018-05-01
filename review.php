@@ -1,74 +1,58 @@
 <?php
     require_once("support.php");
 
-    if (isset($_POST["addReview"])) {
-            $host = "localhost";
-        	$user = "dbuser";
-        	$password = "goodbyeWorld";
-        	$database = "groupproj";
-        	$table = "reviews";
-        	$db_connection = new mysqli($host, $user, $password, $database);
 
-        	if ($db_connection->connect_error) {
-                    		die($db_connection->connect_error);
-                    	}
+$host = "localhost";
+$user = "id5526878_dbuser";
+$password = "goodbyeWorld";
+$database = "id5526878_groupproj";
+$table = "reviews";
+$toAdd = "";
+$db_connection = new mysqli($host, $user, $password, $database);
+if ($db_connection->connect_error) {
+    die($db_connection->connect_error);
+}
+if (isset($_POST["addReview"])) {
+    $displayName = $_POST["displayName"];
+    $rating = $_POST["rating"];
+    $review = $_POST["review"];
+    $file = $_POST["file"];
 
-                    	 $displayName = $_POST["displayName"];
-                         $rating = $_POST["rating"];
-                         $review = $_POST["review"];
-			 $file = $_POST["file"];
-			 
-			 $fileData = addslashes(file_get_contents($file));
+    $fileData = addslashes(file_get_contents($file));
+
+    $sqlQuery = sprintf("insert into $table values ('$displayName', '$rating', '$review', '$file')");
 
 
-                        $sqlQuery = sprintf("insert into $table values('$displayName', '$rating', '$review', '$file')");
-
-
-                        $result = $db_connection->query($sqlQuery);
-                        	if (!$result) {
-                        		die("Insertion failed: " . $db_connection->error);
-                        	}
-
-                    	 $db_connection->close();
+    $result = $db_connection->query($sqlQuery);
+    if (!$result) {
+        die("Insertion failed: " . $db_connection->error);
     }
-
-
-
-    $host = "localhost";
-            	$user = "dbuser";
-            	$password = "goodbyeWorld";
-            	$database = "groupproj";
-            	$table = "reviews";
-            	$toAdd = "";
-            	 $db_connection = new mysqli($host, $user, $password, $database);
-        	if ($db_connection->connect_error) {
-        		die($db_connection->connect_error);
-        	}
-        	$query = "select * from $table";
-        	$result = $db_connection->query($query);
-        	if (!$result) {
-           		die("Retrieval failed: ". $db_connection->error);
-    	    } else {
-            	$num_rows = $result->num_rows;
-            	for ($row_index = 0; $row_index < $num_rows; $row_index++) {
-                      $result->data_seek($row_index);
-                      $row = $result->fetch_array(MYSQLI_ASSOC);
-                      $displayNameItem = $row['name'];
-                      $ratingItem = $row['rating'];
-                      $reviewItem = $row['review'];
-		      $imageItem = $row['image'];
-		      /*$realImage = base64_decode($imageItem);
+    $db_connection->close();
+}
+$query = "select * from $table";
+$result = $db_connection->query($query);
+if (!$result) {
+    die("Retrieval failed: ". $db_connection->error);
+} else {
+    $num_rows = $result->num_rows;
+    for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+        $result->data_seek($row_index);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $displayNameItem = $row['name'];
+        $ratingItem = $row['rating'];
+        $reviewItem = $row['review'];
+        $imageItem = $row['image'];
+        /*$realImage = base64_decode($imageItem);
 		      $realImage2 = "<img src='data:image/jpeg;base64,{$realImage}' alt='pic'>";*/
-                      $toAdd .= "<tr><td class='name'>$displayNameItem</td>
-                                 <td class='rating'>$ratingItem". "/5</td>
-                                 <td class= 'reviewText'>$reviewItem</td>
-				 <td><img src='$imageItem' class='userImage' alt='User Pic'></td></tr>";
-                }
-           }
+        $toAdd .= "<tr><td class='name'>$displayNameItem</td>
+                       <td class='rating'>$ratingItem". "/5</td>
+                       <td class= 'reviewText'>$reviewItem</td>
+                       <td><img src='$imageItem' class='userImage' alt='User Pic'></td></tr>";
+        }
+}
 
+$topPart = <<<EOBODY
 
-
-    $topPart = <<<EOBODY
         <nav class="navbar-default navbar stuff" id="bar">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -110,15 +94,15 @@
                                          </td>
                  						</tr>
                  						<tr>
-                                                                                  <td class="name">Wallace Loh</td>
-                                                                                  <td class="rating" >5/5</td>
-                                                                                  <td class= "reviewText" >Amazing website. I cannot beleive this was made
-                                                                                  by UMD students. The creators of this website deserve an A for their grade.
-                                                                                  I will fire their professor if they don't receive an A on this project.
-                                                                                 </td>
-                                                         						</tr>
+                                        <td class="name">Wallace Loh</td>
+                                        <td class="rating" >5/5</td>
+                                        <td class= "reviewText" >Amazing website. I cannot beleive this was made
+                                                                 by UMD students. The creators of this website deserve an A for their grade.
+                                                                I will fire their professor if they don't receive an A on this project.
+                                                              </td>
+                                        </tr>
 
-                                                         						$toAdd<br><br>
+                                        $toAdd;
                  					</tbody>
                  				</table>
                  			</div>
@@ -134,10 +118,12 @@
                          <input type="radio" name="rating" value="3" checked> 3
                          <input type="radio" name="rating" value="4"> 4
                          <input type="radio" name="rating" value="5"> 5<br><br>
-			 <strong>Add Your Image:</strong> <br><br>
-			 <input type="file" name="file" id="file">
-			 <br>
 
+                         <strong>Add Your Image:</strong> <br><br>
+			             <input type="file" name="file" id="file">
+			             <br>
+                         <strong>Upload Additional Information: </strong><input type="file" name="fileToUpload">
+                         <br>
 
                          <strong>Your Review: </strong>
                           <textarea rows="6" cols="80" name="review"></textarea>
@@ -148,7 +134,6 @@
                           <input type="submit" name="addReview" class="btn btn-primary btn-lg btn-block" value = "Add Review">
                           <br>
                           <input type="reset" class="btn btn-primary btn-lg btn-block"  value = "Clear">
-
                                              <br>
                                              </div>
 
