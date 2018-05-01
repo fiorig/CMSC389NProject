@@ -63,20 +63,20 @@ $topPart = <<<EOBODY
 
                 <form action="{$_SERVER["PHP_SELF"]}" method="post">
                 <div id = "contactDiv3" class = "form-group control-label col-sm-8">
-                    <strong>First Name: </strong><input type="text" name="firstName" class="form-control" required placeholder="First Name" value = $firstName>
+                    <strong>First Name: </strong><input type="text" id="firstName" name="firstName" class="form-control"  placeholder="First Name" value = $firstName>
                     <br>
-                    <strong>Last Name: </strong><input type="text" name="lastName" class="form-control" required placeholder="Last Name" value = $lastName>
+                    <strong>Last Name: </strong><input type="text" id="lastName" name="lastName" class="form-control"  placeholder="Last Name" value = $lastName>
                     <br>
                     <strong>Your Email: </strong><input type="email" name="email" class="form-control" placeholder="example@notreal.notreal" required value = $email>
                     <br>
-                    <strong>Your Phone Number: </strong><input type="text" name="phoneNumber" class="form-control" placeholder="(555)555-5555" pattern="\([0-9]{3}\)[0-9]{3}-[0-9]{4}" value = $phoneNumber><br>
+                    <strong>Your Phone Number: </strong><input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="1234567890" value = $phoneNumber><br>
                     <strong>Your Preferred Method of Contact: </strong>
                    $add <br><br>
                      <strong>Your Message: </strong>
-                     <textarea rows="6" cols="59" name="message">$message</textarea>
+                     <textarea rows="6" cols="59" name="message" id="message">$message</textarea>
                      <br><br>
                      <input type="submit" class="btn btn-primary btn-lg btn-block" name ="messageSubmit" value= "Submit Message">
-                     <input type="submit" class="btn btn-primary btn-lg btn-block" value= "Reset" name ="resetButton">
+                     <input type="reset" class="btn btn-primary btn-lg btn-block" value= "Reset" name ="resetButton">
                     </div>
                 </form>
                  <br><br><br><br><br><br><br>
@@ -97,3 +97,4 @@ EOBODY;
 $page = generatePage($topPart);
     echo $page;
 ?>
+<script src = "contactUs.js"> </script>
