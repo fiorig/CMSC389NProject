@@ -37,18 +37,18 @@ $topPart = <<<EOBODY
 
                 <form action="{$_SERVER["PHP_SELF"]}" method="post">
                 <div id = "contactDiv" class = "form-group control-label col-sm-8">
-                    <strong>First Name: </strong><input type="text" name="firstName" class="form-control" required placeholder="First Name">
+                    <strong>First Name: </strong><input type="text" id="firstName" name="firstName" class="form-control"  placeholder="First Name">
                     <br>
-                    <strong>Last Name: </strong><input type="text" name="lastName" class="form-control" required placeholder="Last Name">
+                    <strong>Last Name: </strong><input type="text" id="lastName" name="lastName" class="form-control"  placeholder="Last Name">
                     <br>
                     <strong>Your Email: </strong><input type="email" name="email" class="form-control" placeholder="example@notreal.notreal" required>
                     <br>
-                    <strong>Your Phone Number: </strong><input type="text" name="phoneNumber" class="form-control" placeholder="(555)555-5555" pattern="\([0-9]{3}\)[0-9]{3}-[0-9]{4}"><br>
+                    <strong>Your Phone Number: </strong><input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="1234567890"><br>
                     <strong>Your Preferred Method of Contact: </strong>
                     <input type="radio" name="contact" value="email" checked> Email
                       <input type="radio" name="contact" value="phone"> Phone <br><br>
                      <strong>Your Message: </strong><br>
-                     <textarea rows="6" cols="73" name="message"></textarea>
+                     <textarea rows="6" cols="73" name="message" id="message"></textarea>
                      <br><br>
                      <input type="submit" class="btn btn-primary btn-lg btn-block" name ="messageSubmit" value= "Submit Message">
                      <input type="reset" class="btn btn-primary btn-lg btn-block" value= "Reset">
@@ -73,3 +73,5 @@ EOBODY;
 $page = generatePage($topPart);
     echo $page;
 ?>
+
+<script src = "contactUs.js"> </script>
